@@ -1,77 +1,95 @@
 body {
-  font-family: "Georgia", serif;
-  background: #111;
-  color: #d8c59a;
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-  margin: 0;
+    font-family: "Georgia", serif;
+    background: #111;
+    color: #d8c59a;
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+    margin: 0;
 }
 
 .calculator {
-  background: #1e1a16;
-  border: 2px solid #4c392a;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.7);
-  max-width: 500px;
-  width: 100%;
+    background: #1e1a16;
+    border: 2px solid #4c392a;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    max-width: 500px;
+    width: 100%;
 }
 
-h1, h2 {
-  text-align: center;
-  margin: 0.2rem 0;
+h1,
+h2 {
+    text-align: center;
+    margin: 0.2rem 0;
 }
 
 .rarity-options {
-  display: flex;
-  justify-content: space-between;
-  margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
 }
 
+/* Make each button layout vertically */
 .rarity-options button {
-  background: none;
-  border: 2px solid transparent;
-  padding: 0.3rem;
-  border-radius: 6px;
-  cursor: pointer;
+    background: none;
+    border: 2px solid /*transparent*/;
+    padding: 0.3rem;
+    border-radius: 6px;
+    cursor: pointer;
+
+    /* New flex styles for vertical alignment */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .rarity-options button.active {
-  border-color: #d8c59a;
+    border-color: #d8c59a;
+}
+
+/* Styling for the label text beneath each image */
+.rarity-label {
+    color: #d8c59a;
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: center;
 }
 
 label {
-  display: block;
-  margin-top: 1rem;
-  font-weight: bold;
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
 }
 
 input[type="range"],
 input[type="number"],
 select {
-  width: 100%;
-  margin: 0.3rem 0;
-  padding: 0.3rem;
-  border-radius: 4px;
-  border: none;
+    width: 100%;
+    margin: 0.3rem 0;
+    padding: 0.3rem;
+    border-radius: 4px;
+    border: none;
 }
 
 select:disabled {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 table {
-  width: 100%;
-  margin-top: 1.5rem;
-  border-collapse: collapse;
+    width: 100%;
+    margin-top: 1.5rem;
+    border-collapse: collapse;
 }
 
-table, th, td {
-  border: 1px solid #4c392a;
+table,
+th,
+td {
+    border: 1px solid #4c392a;
 }
 
-th, td {
-  padding: 0.5rem;
-  text-align: center;
+th,
+td {
+    padding: 0.5rem;
+    text-align: center;
 }
