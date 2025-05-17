@@ -1,16 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap');
 
 :root {
-  --rarity-common: #FFFFFF;    /* White */
-  --rarity-superior: #69E15E;  /* Green */
-  --rarity-heroic: #4CCFFF;    /* Blue */
-  --rarity-fabled: #F0B71C;    /* Gold */
-  --rarity-eternal: #F08033;   /* Orange */
-  --rarity-mythic: #8F39CE;    /* Purple */
+    --rarity-common: #FFFFFF;
+    /* White */
+    --rarity-superior: #69E15E;
+    /* Green */
+    --rarity-heroic: #4CCFFF;
+    /* Blue */
+    --rarity-fabled: #F0B71C;
+    /* Gold */
+    --rarity-eternal: #F08033;
+    /* Orange */
+    --rarity-mythic: #8F39CE;
+    /* Purple */
 
-  --button-min-width: 80px;
-  --button-padding: 0.5rem;
+    --button-min-width: 80px;
+    --button-padding: 0.5rem;
 }
 
 body {
@@ -43,7 +48,8 @@ body {
 h2 {
     text-align: center;
     font-family: 'Crimson Text', serif;
-    font-weight: 700; /* bold */
+    font-weight: 700;
+    /* bold */
     letter-spacing: 0.025em;
     margin: 0.2rem 0;
 }
@@ -51,7 +57,8 @@ h2 {
 .rarity-options {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 1fr; /* Equal width columns */
+    grid-auto-columns: 1fr;
+    /* Equal width columns */
     gap: 0.5rem;
     margin: 1rem 0;
 }
@@ -63,13 +70,13 @@ h2 {
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    
+
     /* Flex layout for content */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
     /* Consistent sizing */
     min-width: var(--button-min-width);
     width: 100%;
@@ -159,18 +166,82 @@ label {
     font-weight: bold;
 }
 
+#supplements {
+    width: 100%;
+    background-color: #2a2520;
+    color: #d8c59a;
+    border: 1px solid #3a332e;
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    appearance: none;
+    /* Removing default OS styling */
+    -webkit-appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, #d8c59a 50%),
+        linear-gradient(-45deg, transparent 50%, #d8c59a 50%);
+    background-position:
+        calc(100% - 15px) center,
+        calc(100% - 10px) center;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+}
+
+/* Inactive state */
+#supplements:disabled {
+    background-color: #1e1a16;
+    color: #6a5d4b;
+    border-color: #2a2520;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Focus/hover states */
+#supplements:hover:not(:disabled) {
+    background-color: #322c26;
+    border-color: #4a423b;
+}
+
+#supplements:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(216, 197, 154, 0.3);
+}
+
+/* Dropdown arrow styling (for Firefox) */
+@supports (-moz-appearance:none) {
+    #supplements {
+        padding-right: 30px;
+        background-image:
+            linear-gradient(45deg, transparent 50%, #d8c59a 50%),
+            linear-gradient(-45deg, transparent 50%, #d8c59a 50%);
+        background-position:
+            calc(100% - 12px) center,
+            calc(100% - 7px) center;
+    }
+}
+
+/* Label styling */
+label[for="supplements"] {
+    font-family: 'Crimson Text', serif;
+    font-size: 18px;
+    letter-spacing: 0.025em;
+    margin-top: 1rem;
+    display: block;
+    margin-bottom: 6px;
+    color: #d8c59a;
+}
+
 input[type="range"],
-input[type="number"],
-select {
+input[type="number"]{
     width: 100%;
     margin: 0.3rem 0;
     padding: 0.3rem;
     border-radius: 4px;
     border: none;
-}
-
-select:disabled {
-    opacity: 0.5;
 }
 
 table {
