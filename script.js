@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'heroic': 20,
             'fabled': 30,
             'eternal': 40,
-            'Mythic': 50
+            'mythic': 50
         }
 
         return gradeLevels[itemRarity.toLowerCase()] ?? 0
@@ -106,42 +106,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const requiredEnchantmentLevel = itemLevel + enchantLevel + gradeLevel
         const supplementGrade = getSupplementGrade(supplementDropdown.value)
 
-        let stoneLvlMaxChance = null;
+        let stoneLvlMaxChance = null
         for (let stoneLevel = minStoneLvl; stoneLevel <= maxStoneLvl; stoneLevel++) {
-            let baseChance = calculateChance(requiredEnchantmentLevel, stoneLevel, 0);
-            baseChance = Math.min(baseChance, maxChance);
+            let baseChance = calculateChance(requiredEnchantmentLevel, stoneLevel, 0)
+            baseChance = Math.min(baseChance, maxChance)
             if (baseChance === maxChance) {
-                stoneLvlMaxChance = stoneLevel;
+                stoneLvlMaxChance = stoneLevel
                 break;
             }
         }
 
         if (stoneLvlMaxChance === null) {
-            stoneLvlMaxChance = maxStoneLvl;
+            stoneLvlMaxChance = maxStoneLvl
         }
 
-        const secondToLast = stoneLvlMaxChance;
-        const last = Math.min(stoneLvlMaxChance + 1, maxStoneLvl);
+        const secondToLast = stoneLvlMaxChance
+        const last = Math.min(stoneLvlMaxChance + 1, maxStoneLvl)
 
         // Reserve slots for bottom 2 rows
-        const bodySize = tableSize - 2;
+        const bodySize = tableSize - 2
 
 
         // Fill lower levels
-        let lowerLevels = [];
+        let lowerLevels = []
         for (let level = secondToLast - 1; level >= minStoneLvl; level--) {
-            lowerLevels.unshift(level);
+            lowerLevels.unshift(level)
             if (lowerLevels.length >= bodySize) {
                 break;
             }
         }
 
         // Fill higher levels if we still have rows left
-        let higherLevels = [];
-        let nextLevel = secondToLast + 2;
+        let higherLevels = []
+        let nextLevel = secondToLast + 2
         while (lowerLevels.length + higherLevels.length < bodySize && nextLevel <= maxStoneLvl) {
-            higherLevels.push(nextLevel);
-            nextLevel++;
+            higherLevels.push(nextLevel)
+            nextLevel++
         }
 
         const rows = [
@@ -149,14 +149,14 @@ document.addEventListener('DOMContentLoaded', () => {
             ...higherLevels,
             secondToLast,
             last
-        ];
+        ].sort((a,b) => a-b)
 
         // Generate the table
-        chanceTable.innerHTML = '';
+        chanceTable.innerHTML = ''
 
         rows.forEach(stoneLevel => {
-            let baseChance = calculateChance(requiredEnchantmentLevel, stoneLevel, 0);
-            baseChance = Math.min(baseChance, maxChance);
+            let baseChance = calculateChance(requiredEnchantmentLevel, stoneLevel, 0)
+            baseChance = Math.min(baseChance, maxChance)
 
             const totalChance = Math.min(baseChance + supplementGrade, maxChance + supplementGrade)
 
