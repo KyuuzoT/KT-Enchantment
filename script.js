@@ -1,69 +1,68 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const rarityButtons = document.querySelectorAll('[data-rarity]');
-    const supplements = document.getElementById('supplements');
-    const chanceTable = document.getElementById('chance-table');
+    const rarityButtons = document.querySelectorAll('[data-rarity]')
+    const supplements = document.getElementById('supplements')
+    const chanceTable = document.getElementById('chance-table')
     const maxChance = 80
 
-    const rarityWithSupplements = ['Fabled', 'Eternal', 'Mythic'];
+    const rarityWithSupplements = ['Fabled', 'Eternal', 'Mythic']
     let selectedRarity = document.querySelector('[data-rarity].active')?.getAttribute('data-rarity') || null
 
     const getSupplementsState = (selectedRarity) => {
         if (selectedRarity) {
-            supplements.disabled = !rarityWithSupplements.includes(selectedRarity);
+            supplements.disabled = !rarityWithSupplements.includes(selectedRarity)
             if (supplements.disabled) {
-                supplements.value = "No Supplements";
-                supplementGrade = 0;
-                updateTable();
+                supplements.value = "No Supplements"
+                supplementGrade = 0
+                updateTable()
             }
         }
     }
 
-    const getSupplementGrade = (supplement) => {
-        const supplementGrades = {
-            'no supplements': 0,
-            'lesser': 5,
-            'normal': 10,
-            'greater': 15
-        }
-
-        console.log(supplement, supplement.toLowerCase(), supplementGrades[supplement.toLowerCase()])
-        return supplementGrades[supplement.toLowerCase()]
+    const supplementGrades = {
+        'no supplements': 0,
+        'lesser': 5,
+        'normal': 10,
+        'greater': 15
     }
+
+    const getSupplementGrade = (supplement) => supplementGrades[supplement.toLowerCase()] ?? 0
 
     rarityButtons.forEach(button => {
         button.addEventListener('click', () => {
-            rarityButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+            rarityButtons.forEach(btn => btn.classList.remove('active'))
+            button.classList.add('active')
 
-            selectedRarity = button.getAttribute('data-rarity');
+            selectedRarity = button.getAttribute('data-rarity')
             getSupplementsState(selectedRarity)
-        });
-    });
-
-    const itemLevel = document.getElementById('item-level');
-    const itemLevelNum = document.getElementById('item-level-num');
-    const enchantLevel = document.getElementById('enchant-level');
-    const enchantLevelNum = document.getElementById('enchant-level-num');
-
-    function syncInputs(range, number) {
-        range.addEventListener('input', () => {
             updateTable()
-            return number.value = range.value
-        });
+        })
+    })
+
+    const itemLevel = document.getElementById('item-level')
+    const itemLevelNum = document.getElementById('item-level-num')
+    const enchantLevel = document.getElementById('enchant-level')
+    const enchantLevelNum = document.getElementById('enchant-level-num')
+
+    const syncInputs = (range, number) => {
+        range.addEventListener('input', () => {
+            number.value = range.value
+            updateTable()
+        })
         number.addEventListener('input', () => {
-            range.value = number.value;
-            updateTable();
-        });
+            range.value = number.value
+            updateTable()
+        })
     }
 
-    syncInputs(itemLevel, itemLevelNum);
-    syncInputs(enchantLevel, enchantLevelNum);
+    syncInputs(itemLevel, itemLevelNum)
+    syncInputs(enchantLevel, enchantLevelNum)
 
     const supplementDropdown = document.getElementById("supplements")
     let supplementGrade = getSupplementGrade(supplementDropdown.value)
-    console.log(supplementDropdown.value, supplementGrade)
+
     supplementDropdown.addEventListener("change", () => {
         supplementGrade = getSupplementGrade(supplementDropdown.value)
+        updateTable()
     })
 
 
@@ -78,48 +77,48 @@ document.addEventListener('DOMContentLoaded', () => {
             'Mythic': 50
         }
 
-        return gradeLevels[itemRarity.toLowerCase()]
+        return gradeLevels[itemRarity.toLowerCase()] ?? 0
     }
 
     const calculateChance = (requiredEnchantmentLevel, stoneLevel, supplementGrade) => {
-        //console.log(stoneLevel, requiredEnchantmentLevel, (stoneLevel / requiredEnchantmentLevel))
-        const baseChance = Math.round((stoneLevel / requiredEnchantmentLevel) * maxChance)
-        return baseChance >= maxChance ? maxChance : baseChance + supplementGrade
+        const denominator = requiredEnchantmentLevel > 0 ? requiredEnchantmentLevel : 1
+        let baseChance = Math.round((stoneLevel / denominator) * maxChance)
+
+        if (baseChance > maxChance) {
+            baseChance = maxChance
+        }
+
+        let totalChance = baseChance + supplementGrade;
+        if (totalChance > maxChance) {
+            totalChance = maxChance
+        }
+
+        return totalChance
     }
 
     function updateTable() {
         const itemLevel = +itemLevelNum.value
         const enchantLevel = +enchantLevelNum.value
         const gradeLevel = +getGradeLevelValue(selectedRarity)
-        const requiredEnchantmentLevel = itemLevel + enchantLevel + gradeLevel;
-        const supplementGrade = getSupplementGrade(supplementDropdown.value);
+        const requiredEnchantmentLevel = itemLevel + enchantLevel + gradeLevel
+        const supplementGrade = getSupplementGrade(supplementDropdown.value)
 
-
-        console.log(requiredEnchantmentLevel)
         const chances = {};
+
         for (let index = itemLevel; index < requiredEnchantmentLevel + 5; index++) {
-            const baseChance = Math.round((index * maxChance) / requiredEnchantmentLevel);
-            const finalChance = baseChance >= maxChance ? maxChance : baseChance + supplementGrade;
-            chances[index] = finalChance;
+            const baseChance = Math.round((index * maxChance) / requiredEnchantmentLevel)
+            const finalChance = baseChance >= maxChance ? maxChance : baseChance + supplementGrade
+            chances[index] = finalChance
         }
-        // const chances = {}
-        // for (let index = itemLevel; index < requiredEnchantmentLevel + 5; index++) {
-        //     // if (!chances[index]) {
-        //     //     chances[index] = []
-        //     // }
 
-        //     const chance = calculateChance(requiredEnchantmentLevel, index, +supplementGrade)
-        //     //console.log(`${index}: ${chance}`)
-        //     chances[index] = chance
-        // }
-
-        chanceTable.innerHTML = '';
+        chanceTable.innerHTML = ''
         Object.entries(chances).forEach(([stone, chance]) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${stone}</td><td>${chance}%</td>`;
-            chanceTable.appendChild(row);
-        });
+            const row = document.createElement('tr')
+            row.innerHTML = `<td>${stone}</td><td>${chance}%</td>`
+            chanceTable.appendChild(row)
+        })
     }
 
-    updateTable();
-});
+    getSupplementsState(selectedRarity)
+    updateTable()
+})
