@@ -106,10 +106,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const chances = {};
 
         const minStoneLvl = itemLevel + enchantLevel
-        const baseStoneLvl = minStoneLvl > requiredEnchantmentLevel ? requiredEnchantmentLevel : minStoneLvl
-        for (let index = baseStoneLvl; index < requiredEnchantmentLevel + 2; index++) {
-            const chance = calculateChance(requiredEnchantmentLevel, index, supplementGrade);
-            chances[index] = chance;
+        const baseStoneLvl = Math.max(
+            minStoneLvl > requiredEnchantmentLevel
+                ? requiredEnchantmentLevel
+                : minStoneLvl,
+            1
+        )
+
+        const endStoneLvl = Math.min(baseStoneLvl + 16, 130)
+
+        for (let index = baseStoneLvl; index < endStoneLvl; index++) {
+            const chance = calculateChance(requiredEnchantmentLevel, index, supplementGrade)
+            chances[index] = chance
         }
 
         chanceTable.innerHTML = ''
