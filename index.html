@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enchantment Chance Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="calculator">
+         <div class="logo-image" title="Enchantment Chance Calculator actual for Aion 4.6">
+            <img class="logo" src="img/logo.png" alt="Aion 4.6 Enchantment Chance Calculator">
+         </div>
+        <!-- <h2>Aion 4.6</h2> -->
+
+        <div class="rarity-options">
+            <button data-rarity="Common" title="Common">
+                <img class="icon" src="img/torso_common.png" alt="Common">
+                <span class="rarity-label">Common</span>
+            </button>
+            <button data-rarity="Superior" title="Superior">
+                <img class="icon" src="img/torso_superior.png" alt="Superior">
+                <span class="rarity-label">Superior</span>
+            </button>
+            <button data-rarity="Heroic" title="Heroic">
+                <img class="icon" src="img/torso_heroic.png" alt="Heroic">
+                <span class="rarity-label">Heroic</span>
+            </button>
+            <button data-rarity="Fabled" class="active" title="Fabled">
+                <img class="icon" src="img/torso_fabled.png" alt="Fabled">
+                <span class="rarity-label">Fabled</span>
+            </button>
+            <button data-rarity="Eternal" title="Eternal">
+                <img class="icon" src="img/torso_eternal.png" alt="Eternal">
+                <span class="rarity-label">Eternal</span>
+            </button>
+            <button data-rarity="Mythic" title="Mythic">
+                <img class="icon" src="img/torso_mythic.png" alt="Mythic">
+                <span class="rarity-label">Mythic</span>
+            </button>
+        </div>
+
+        <label for="supplements">Supplements</label>
+        <select id="supplements">
+            <option>No Supplements</option>
+            <option>Lesser</option>
+            <option>Normal</option>
+            <option>Greater</option>
+        </select>
+
+        <label for="item-level">Item Level</label>
+        <input type="range" id="item-level" min="1" max="65" value="65">
+        <input type="number" id="item-level-num" min="1" max="65" value="65">
+
+        <label for="enchant-level">Initial Enchantment Level</label>
+        <input type="range" id="enchant-level" min="0" max="15" value="0">
+        <input type="number" id="enchant-level-num" min="0" max="15" value="0">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Enchantment Stone Level</th>
+                    <th>Enchantment Chance</th>
+                </tr>
+            </thead>
+            <tbody id="chance-table"></tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
