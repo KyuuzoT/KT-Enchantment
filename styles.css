@@ -29,6 +29,7 @@ body {
     justify-content: center;
     padding: 2rem;
     margin: 0;
+    overflow-x: hidden;
 }
 
 .logo {
@@ -257,6 +258,7 @@ input[type="range"] {
     background-image: linear-gradient(#d8c59a, #d8c59a);
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    touch-action: none;
 }
 
 /* Range Thumb */
@@ -320,9 +322,11 @@ input[type="number"]::-webkit-inner-spin-button {
 
 /* Focus States */
 input[type="range"]:focus,
+input[type="range"]:active,
 input[type="number"]:focus {
     outline: none;
     box-shadow: 0 0 0 2px rgba(216, 197, 154, 0.3);
+    cursor: grabbing;
 }
 
 /* Label Styling */
@@ -363,4 +367,76 @@ th,
 td {
     padding: 0.5rem;
     text-align: center;
+}
+
+.rarity-options button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(216, 197, 154, 0.3);
+}
+
+.rarity-options button:active {
+    transform: scale(0.97);
+    background-color: #28231e;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+        font-size: 16px;
+    }
+
+    .calculator {
+        padding: 1.2rem;
+        max-width: 100%;
+    }
+
+    .logo {
+        max-width: 100%;
+        padding: 0;
+        margin: 0 auto 1rem auto;
+    }
+
+    .rarity-options {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .rarity-options button {
+        min-width: auto;
+        padding: 0.4rem;
+    }
+
+    .rarity-options .icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .rarity-label {
+        font-size: 12px;
+    }
+
+    input[type="number"] {
+        min-width: 60px;
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    input[type="range"]+input[type="number"] {
+        margin-left: 0;
+        margin-top: 0.5rem;
+    }
+
+    label {
+        font-size: 16px;
+    }
+
+    table,
+    th,
+    td {
+        font-size: 14px;
+    }
+
+    #supplements {
+        font-size: 16px;
+    }
 }
