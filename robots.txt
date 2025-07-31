@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /private/
+Disallow: /admin/
+
+Allow: /
+
+Sitemap: https://kyuuzot.github.io/KT-Enchantment/sitemap.xml
